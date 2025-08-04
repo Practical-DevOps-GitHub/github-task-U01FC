@@ -20,6 +20,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send PR notification to Discord
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "New PR opened: **${{ github.event.pull_request.title }}** by `${{ github.actor }}`\n🔗 ${{ github.event.pull_request.html_url }}"
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
   test:
     runs-on: ubuntu-latest
     
