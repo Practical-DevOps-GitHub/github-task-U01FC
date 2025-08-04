@@ -17,10 +17,12 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+    types: [opened]    
   workflow_dispatch:
 
 jobs:
   notify:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
       - name: Send PR notification to Discord
